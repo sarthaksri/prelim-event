@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-const JWT_SECRET = 'secret';
+const JWT_SECRET = 'xpedition';
 
 const fetchuser = (req, res, next) => {
     // Get the user from the jwt token and add id to req object
