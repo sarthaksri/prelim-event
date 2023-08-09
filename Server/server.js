@@ -10,7 +10,8 @@ app.use(express.json());
 
 //available routes
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/game', require('./routes/game'));
+app.use('/api/control', require('./routes/control'));
+app.use('/api/addQuestion', require('./routes/addQuestion'));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

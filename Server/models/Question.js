@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
+const QuestionSchema = new Schema({
   questionNo:{
     type : String,
     required : true
@@ -10,16 +10,23 @@ const UserSchema = new Schema({
     type : String,
     required : true
   },
-  email1: {
-    type: String,
-    required : true,
-    unique : true
-  },
-  teamPoints:{
+  optionOne:{
     type : String,
     required : true
   },
-  betAmount:{
+  optionTwo:{
+    type : String,
+    required : true
+  },
+  optionThree:{
+    type : String,
+    required : true
+  },
+  optionFour:{
+    type : String,
+    required : true
+  },
+  optionAnswer:{
     type : String,
     required : true
   }
