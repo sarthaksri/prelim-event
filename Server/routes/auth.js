@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const Game = require('../models/Game');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken');
@@ -48,6 +49,12 @@ router.post('/createuser', [
         email4: req.body.email4,
         rollNo4: req.body.rollNo4,
         password: req.body.password,
+      });
+      await Game.create({
+        teamName: req.body.teamName,
+        questionNo: "1",
+        optionSelected: "0",
+        teamPoints:"5000",
       });
       const data = {
         user: {
