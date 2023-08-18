@@ -15,6 +15,11 @@ router.post('/addquestions', async (req, res) => {
         optionFour: req.body.optionFour,
         optionAnswer: req.body.optionAnswer,
       });
+      return res.status(200).json({
+        success:true,
+        message:"QUESTION CREATED",
+        question,
+      })
       res.json(question);
   } catch (error) {
     console.error(error.message);
@@ -27,11 +32,15 @@ router.post('/getquestions', async (req, res) => {
   try {
     const questionNo = await req.body.questionNo;
     const questions = await Question.findOne({questionNo});
-    res.json(questions);
+    return res.status(200).json({
+      success:true,
+      message:"sending questions",
+      questions,
+    })
+    // res.json(questions);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
 });
-
 module.exports = router;
