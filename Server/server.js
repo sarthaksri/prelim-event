@@ -1,10 +1,9 @@
 const express = require('express');
 const connectToMongo = require('./db');
-
+const PORT = process.env.PORT || 5000;
 connectToMongo();
 
 const app = express();
-const port = 5000;
 
 app.use(express.json());
 
@@ -13,6 +12,6 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/control', require('./routes/control'));
 app.use('/api/addQuestion', require('./routes/addQuestion'));
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 })

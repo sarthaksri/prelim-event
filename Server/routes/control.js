@@ -7,9 +7,9 @@ var fetchuser = require('../middleware/fetchuser');
 // ROUTE 1: Get the answer and bet by the user using: POST "/api/control/control".
 router.post('/control', fetchuser, async (req, res) => {
     try {
-       const {questionNo, optionSelected, bet, teamName} = req.body;
+       const {questionNo, optionSelected, bet, email1} = req.body;
        let question = await Question.findOne({questionNo: questionNo});
-       let game = await Game.findOne({teamName: teamName});
+       let game = await Game.findOne({email1: email1});
        if(optionSelected == question.optionAnswer)
        {
             game.teamPoints = parseInt(game.teamPoints) + 1.5*bet;
