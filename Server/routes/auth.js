@@ -64,7 +64,7 @@ router.post('/createuser', [
       const authtoken = jwt.sign(data, JWT_SECRET);
   
   
-      res.send("HEllo");
+      return res.send("HEllo");
   
     } catch (error) {
       console.error(error.message);
