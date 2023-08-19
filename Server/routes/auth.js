@@ -60,7 +60,7 @@ router.post('/createuser', [
      res.send("Hello");
   
     } catch (error) {
-      console.error(error.message);
+      console.log("printinh",error)
       res.status(500).send("Internal Server Error");
     }
   })
