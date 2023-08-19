@@ -51,20 +51,13 @@ router.post('/createuser', [
         password: req.body.password,
       });
       await Game.create({
-        teamName: req.body.teamName,
+        email1: req.body.email1,
         questionNo: "1",
-        optionSelected: "0",
         teamPoints:"5000",
       });
-      const data = {
-        user: {
-          id: user.id
-        }
-      }
-      const authtoken = jwt.sign(data, JWT_SECRET);
+        
   
-  
-      return res.send("HEllo");
+     res.send("Hello");
   
     } catch (error) {
       console.error(error.message);
