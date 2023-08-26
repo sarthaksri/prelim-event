@@ -34,6 +34,7 @@ app.use(cors({
 app.use('/api/auth', authroutes);
 app.use('/api/control', require('./routes/control'));
 app.use('/api/addQuestion', require('./routes/addQuestion'));
+app.use('/api/leaderboard', require('./routes/leaderboard'));
 
 app.get("/",(req,res)=>{
   return res.json({
