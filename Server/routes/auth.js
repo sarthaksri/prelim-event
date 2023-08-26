@@ -79,7 +79,8 @@ router.post('/login', [
 
   const { email1, password } = req.body;
   try {
-    let user = await User.findOne({ email1 });
+    const user = await User.findOne({ email1 }).populate("game").exec();
+
     if (!user) {
       success = false
       return res.status(400).json({ error: "Please try to login with correct credentials" });
@@ -90,14 +91,28 @@ router.post('/login', [
       return res.status(400).json({ success, error: "Please try to login with correct credentials" });
     }
 
-    const data = {
-      user: {
-        id: user.id
-      }
+    const payload = {
+      email:user.email1,
+      id:user._id,
+      user
+
     }
-    const authtoken = jwt.sign(data, JWT_SECRET);
-    success = true;
-    res.json({ success, authtoken })
+    const authtoken = jwt.sign(payload, JWT_SECRET,{
+      expiresIn:"1h"
+    });
+    const  options = {
+      expires: new Date(Date.now()+3*24*60*60*1000),
+      httpOnly:true
+  }
+  res.cookie("token",authtoken,options).status(200).json({
+    success:true,
+    message:"LOGGED IN SUCCESFULLY",
+    user,
+    payload,
+    authtoken
+
+})
+    
 
   } catch (error) {
     console.error(error.message);
@@ -106,6 +121,7 @@ router.post('/login', [
 
 
 });
+
 
 
 // ROUTE 2: Get loggedin User Details using: POST "/api/auth/getuser". Login required
