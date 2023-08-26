@@ -37,25 +37,14 @@ router.post('/createuser', [
       // Create a new user
       const game = await Game.create({
         questionNo:"1",
-        question:"What is Your Name",
+        question:"",
         email1:req.body.email1,
         teamPoints:"5000",
-        betAmount:"5000"
+        betAmount:"0"
       })
       const user = await User.create({
         teamName: req.body.teamName,
-        name1: req.body.name1,
         email1: req.body.email1,
-        rollNo1: req.body.rollNo1,
-        name2: req.body.name2,
-        email2: req.body.email2,
-        rollNo2: req.body.rollNo2,
-        name3: req.body.name3,
-        email3: req.body.email3,
-        rollNo3: req.body.rollNo3,
-        name4: req.body.name4,
-        email4: req.body.email4,
-        rollNo4: req.body.rollNo4,
         password: req.body.password,
         game:game._id,
       });
