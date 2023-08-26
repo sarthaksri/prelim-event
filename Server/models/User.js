@@ -13,7 +13,8 @@ const UserSchema = new Schema({
   email1: {
     type: String,
     required : true,
-    unique : true
+    unique:true,
+    
   },
   rollNo1:{
     type : String,
@@ -26,7 +27,7 @@ const UserSchema = new Schema({
   email2: {
     type: String,
     required : true,
-    unique : true
+    
   },
   rollNo2:{
     type : String,
@@ -39,7 +40,7 @@ const UserSchema = new Schema({
   email3: {
     type: String,
     required : true,
-    unique : true
+   
   },
   rollNo3:{
     type : String,
@@ -52,7 +53,7 @@ const UserSchema = new Schema({
   email4: {
     type: String,
     required : true,
-    unique : true
+    
   },
   rollNo4:{
     type : String,
@@ -62,7 +63,13 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  game:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Game'
+  }
 });
 
-const User = mongoose.model('user', UserSchema);
-module.exports = User;
+// const User = mongoose.model('user', UserSchema);
+// module.exports = User;
+
+module.exports= mongoose.model("User",UserSchema)
