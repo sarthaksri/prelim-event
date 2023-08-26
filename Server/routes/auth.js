@@ -78,7 +78,7 @@ router.post('/login', [
   }
   const { email1, password } = req.body;
   try {
-    const user = await User.findOne({ email1 }).populate("Game").exec();
+    const user = await User.findOne({ email1 }).populate("game").exec();
     if (!user) {
       success = false
       return res.status(400).json({ error: "Please try to login with correct credentials" });
