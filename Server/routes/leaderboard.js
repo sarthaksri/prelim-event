@@ -2,7 +2,7 @@ const express = require('express');
 const Question = require('../models/Question');
 const Game = require('../models/Game');
 const router = express.Router();
-
+// To get the top 8 teams GET: /api/leaderboard/getLeaderboard
 router.get('/getLeaderboard', async (req, res) => {
     try
     {
