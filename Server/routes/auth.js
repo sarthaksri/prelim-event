@@ -8,23 +8,8 @@ const Game = require("../models/Game")
 const JWT_SECRET = 'xpedition';
 
 // ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required
-router.post('/createuser', [
-    body('teamName', 'Enter a valid name').isLength({ min: 2 }),
-    body('name1', 'Enter a valid name').isLength({ min: 3 }),
-    body('email1', 'Enter a valid email').isEmail(),
-    body('name2', 'Enter a valid name').isLength({ min: 3 }),
-    body('email2', 'Enter a valid email').isEmail(),
-    body('name3', 'Enter a valid name').isLength({ min: 3 }),
-    body('email3', 'Enter a valid email').isEmail(),
-    body('name4', 'Enter a valid name').isLength({ min: 3 }),
-    body('email4', 'Enter a valid email').isEmail(),
-    body('password', 'Password must be atleast 5 characters').isLength({ min: 5 }),
-  ], async (req, res) => {
+router.post('/createuser', async (req, res) => {
     // If there are errors, return Bad request and the errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
       const {email1} = req.body;
       console.log(email1);
