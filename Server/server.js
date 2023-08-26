@@ -3,11 +3,11 @@ const connectToMongo = require('./db');
 const cookiep = require("cookie-parser")
 const fileupload = require("express-fileupload")
 const authroutes = require("./routes/auth")
-
+const PORT = process.env.PORT || 10000;
 connectToMongo();
 
 const app = express();
-const port = 10000;
+
 const cors = require('cors')
 
 app.use(express.json());
@@ -41,6 +41,6 @@ app.get("/",(req,res)=>{
       message:"YOUR SERVER IS ACTIVATED"
   })
 })
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 })
