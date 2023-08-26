@@ -3,7 +3,7 @@ const connectToMongo = require('./db');
 const cookiep = require("cookie-parser")
 const fileupload = require("express-fileupload")
 const authroutes = require("./routes/auth")
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 1000;
 connectToMongo();
 
 const app = express();
