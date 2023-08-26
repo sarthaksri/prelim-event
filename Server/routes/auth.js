@@ -22,7 +22,7 @@ router.post('/createuser', async (req, res) => {
       // Create a new user
       const game = await Game.create({
         questionNo:"1",
-        question:"",
+        question:"What would happen next?",
         email1:req.body.email1,
         teamPoints:"5000",
         betAmount:"0"
