@@ -1,11 +1,10 @@
 const express = require('express');
 const User = require('../models/User');
-const Game = require('../models/Game');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
-
+const Game = require("../models/Game") 
 const JWT_SECRET = 'xpedition';
 
 // ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required
@@ -27,14 +26,23 @@ router.post('/createuser', [
       return res.status(400).json({ errors: errors.array() });
     }
     try {
+      const {email1} = req.body;
+      console.log(email1);
       // Check whether the user with this email exists already
-      let user = await User.findOne({ email: req.body.email1 });
-      if (user) {
-        return res.status(400).json({ error: "Sorry a user with this email already exists" })
+      const existinguser = await User.findOne({email:email1});
+      console.log(existinguser)
+      if (existinguser!=null) {
+        return res.status(400).json({ message: "Sorry a user with this email already exists" })
       }
-  
       // Create a new user
-      user = await User.create({
+      const game = await Game.create({
+        questionNo:"1",
+        question:"What is Your Name",
+        email1:req.body.email1,
+        teamPoints:"5000",
+        betAmount:"5000"
+      })
+      const user = await User.create({
         teamName: req.body.teamName,
         name1: req.body.name1,
         email1: req.body.email1,
@@ -49,21 +57,39 @@ router.post('/createuser', [
         email4: req.body.email4,
         rollNo4: req.body.rollNo4,
         password: req.body.password,
+        game:game._id,
       });
-      await Game.create({
-        email1: req.body.email1,
-        questionNo: "1",
-        teamPoints:"5000",
-      });
-        
-  
-     res.send("Hello");
+      // const data = {
+      //   user: {
+      //     id: user.id
+      //   }
+      // }
+      // const authtoken = jwt.sign(data, JWT_SECRET);
+      // res.json({ authtoken })
+
+      return res.status(200).json({
+        success:true,
+        message:"SIGN UP SUCCESSFULLY",
+        user,
+      })
   
     } catch (error) {
-      console.log("printinh",error)
-      res.status(500).send("Internal Server Error");
+      // console.log(error)
+      // console.error(error.message);
+      return res.status(500).json(
+        {
+          success:false,
+          message:"Internal server error",
+          error:error
+        }
+      )
     }
   })
+
+
+
+
+
 
 // ROUTE 1: Authenticate a User using: POST "/api/auth/login". No login required
 router.post('/login', [
@@ -76,11 +102,9 @@ router.post('/login', [
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
   const { email1, password } = req.body;
   try {
     const user = await User.findOne({ email1 }).populate("game").exec();
-
     if (!user) {
       success = false
       return res.status(400).json({ error: "Please try to login with correct credentials" });
@@ -90,12 +114,10 @@ router.post('/login', [
       success = false
       return res.status(400).json({ success, error: "Please try to login with correct credentials" });
     }
-
     const payload = {
       email:user.email1,
       id:user._id,
       user
-
     }
     const authtoken = jwt.sign(payload, JWT_SECRET,{
       expiresIn:"1h"
@@ -110,23 +132,14 @@ router.post('/login', [
     user,
     payload,
     authtoken
-
 })
-    
-
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
-
-
 });
-
-
-
 // ROUTE 2: Get loggedin User Details using: POST "/api/auth/getuser". Login required
 router.post('/getuser', fetchuser,  async (req, res) => {
-
   try {
     var userId = req.user.id;
     const user = await User.findById(userId).select("-password");

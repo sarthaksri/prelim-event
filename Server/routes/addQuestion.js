@@ -32,7 +32,7 @@ router.post('/getquestions', async (req, res) => {
   try {
     const questionNo = await req.body.questionNo;
     const questions = await Question.findOne({questionNo});
-    return res.status(200).json({
+    res.status(200).json({
       success:true,
       message:"sending questions",
       questions,
