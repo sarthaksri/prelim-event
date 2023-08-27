@@ -25,7 +25,7 @@ app.use((_req, res, next) => {
     next();
   }),
 app.use(cors({
-    origin:"https://frontend1-rosy.vercel.app",
+    origin:"https://xpedition.vercel.app",
     credentials:true,
 }))  
 ));
